@@ -18,12 +18,15 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <merges target="cordova.plugins.firebase.dynamiclinks" />
     </js-module>
 
-    <preference name="APP_DOMAIN_NAME" default="outsystemsfirebase.page.link" />
+    <preference name="APP_DOMAIN_NAME" default="firebase_domain_url_prefix"/>
     <preference name="APP_DOMAIN_PATH" default="/" />
 
     <dependency id="cordova-plugin-firebase-analytics" url="https://github.com/OutSystems/cordova-plugin-firebase-analytics.git#outsystems"/>
 
     <platform name="android">
+
+        <hook type="after_prepare" src="hooks/androidCopyPreferences.js" />
+
         <preference name="ANDROID_FIREBASE_DYNAMICLINKS_VERSION" default="19.1.+"/>
 
         <config-file parent="/*" target="res/xml/config.xml">
@@ -52,6 +55,9 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     </platform>
 
     <platform name="ios">
+
+        <hook type="after_prepare" src="hooks/iOSCopyPreferences.js" />
+
         <config-file parent="/*" target="config.xml">
             <preference name="DOMAIN_URI_PREFIX" value="https://$APP_DOMAIN_NAME$APP_DOMAIN_PATH"/>
             <feature name="FirebaseDynamicLinks">
