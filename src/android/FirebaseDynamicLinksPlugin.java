@@ -31,6 +31,9 @@ import by.chemerisuk.cordova.support.ReflectiveCordovaPlugin;
 public class FirebaseDynamicLinksPlugin extends ReflectiveCordovaPlugin {
     private static final String TAG = "FirebaseDynamicLinks";
 
+    private static final int CALLER_ON_DYNAMIC_LINK = 1;
+    private static final int CALLER_GET_DYNAMIC_LINK = 2;
+
     private FirebaseDynamicLinks firebaseDynamicLinks;
     private String domainUriPrefix;
     private CallbackContext dynamicLinkCallback;
@@ -48,13 +51,13 @@ public class FirebaseDynamicLinksPlugin extends ReflectiveCordovaPlugin {
     @Override
     public void onNewIntent(Intent intent) {
         if (dynamicLinkCallback != null) {
-            respondWithDynamicLink(intent, dynamicLinkCallback, 1);
+            respondWithDynamicLink(intent, dynamicLinkCallback, CALLER_ON_DYNAMIC_LINK);
         }
     }
 
     @CordovaMethod
     private void getDynamicLink(CallbackContext callbackContext) {
-        respondWithDynamicLink(cordova.getActivity().getIntent(), callbackContext, 2);
+        respondWithDynamicLink(cordova.getActivity().getIntent(), callbackContext, CALLER_GET_DYNAMIC_LINK);
     }
 
     @CordovaMethod
@@ -103,7 +106,7 @@ public class FirebaseDynamicLinksPlugin extends ReflectiveCordovaPlugin {
                             //only update if the caller of respondWithDynamicLink is getDynamicLink
                             //because if respondWithDynamicLink is being called from the onDynamicLink event, we do not want to update
                             //this is to prevent returning the same dynamic link in multiple calls to getDynamicLink
-                            if(callerMethod == 2){
+                            if(callerMethod == CALLER_GET_DYNAMIC_LINK){
                                 lastTimestamp = data.getClickTimestamp();
                             }
                             return result;
