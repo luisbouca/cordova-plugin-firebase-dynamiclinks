@@ -34,6 +34,7 @@ public class FirebaseDynamicLinksPlugin extends ReflectiveCordovaPlugin {
     private FirebaseDynamicLinks firebaseDynamicLinks;
     private String domainUriPrefix;
     private CallbackContext dynamicLinkCallback;
+    private long lastTimestamp;
 
     @Override
     protected void pluginInitialize() {
@@ -41,18 +42,19 @@ public class FirebaseDynamicLinksPlugin extends ReflectiveCordovaPlugin {
 
         this.firebaseDynamicLinks = FirebaseDynamicLinks.getInstance();
         this.domainUriPrefix = this.preferences.getString("DOMAIN_URI_PREFIX", "");
+        this.lastTimestamp = 0;
     }
 
     @Override
     public void onNewIntent(Intent intent) {
         if (dynamicLinkCallback != null) {
-            respondWithDynamicLink(intent, dynamicLinkCallback);
+            respondWithDynamicLink(intent, dynamicLinkCallback, 1);
         }
     }
 
     @CordovaMethod
     private void getDynamicLink(CallbackContext callbackContext) {
-        respondWithDynamicLink(cordova.getActivity().getIntent(), callbackContext);
+        respondWithDynamicLink(cordova.getActivity().getIntent(), callbackContext, 2);
     }
 
     @CordovaMethod
@@ -80,25 +82,36 @@ public class FirebaseDynamicLinksPlugin extends ReflectiveCordovaPlugin {
         }
     }
 
-    private void respondWithDynamicLink(Intent intent, final CallbackContext callbackContext) {
+    private void respondWithDynamicLink(Intent intent, final CallbackContext callbackContext, int callerMethod) {
         this.firebaseDynamicLinks.getDynamicLink(intent)
                 .continueWith(new Continuation<PendingDynamicLinkData, JSONObject>() {
                     @Override
                     public JSONObject then(Task<PendingDynamicLinkData> task) throws JSONException {
                         PendingDynamicLinkData data = task.getResult();
 
-                        JSONObject result = new JSONObject();
-                        result.put("deepLink", data.getLink());
-                        result.put("clickTimestamp", data.getClickTimestamp());
-                        result.put("minimumAppVersion", data.getMinimumAppVersion());
+                        if(lastTimestamp != data.getClickTimestamp()){
+                            JSONObject result = new JSONObject();
+                            result.put("deepLink", data.getLink());
+                            result.put("clickTimestamp", data.getClickTimestamp());
+                            result.put("minimumAppVersion", data.getMinimumAppVersion());
 
-                        if (callbackContext != null) {
-                            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, result);
-                            pluginResult.setKeepCallback(callbackContext == dynamicLinkCallback);
-                            callbackContext.sendPluginResult(pluginResult);
+                            if (callbackContext != null) {
+                                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, result);
+                                pluginResult.setKeepCallback(callbackContext == dynamicLinkCallback);
+                                callbackContext.sendPluginResult(pluginResult);
+                            }
+                            //only update if the caller of respondWithDynamicLink is getDynamicLink
+                            //because if respondWithDynamicLink is being called from the onDynamicLink event, we do not want to update
+                            //this is to prevent returning the same dynamic link in multiple calls to getDynamicLink
+                            if(callerMethod == 2){
+                                lastTimestamp = data.getClickTimestamp();
+                            }
+                            return result;
                         }
-
-                        return result;
+                        else{
+                            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, (String)null));
+                            return null;
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
