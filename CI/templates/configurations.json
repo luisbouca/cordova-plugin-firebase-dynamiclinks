@@ -1,0 +1,17 @@
+{
+    "moduleName": "FirebaseDynamicLinksPluginPlugin",
+    "applicationNames": [
+        "FirebaseDynamicLinksPluginPlugin",
+        "FirebaseDynamicLinksPluginSampleApp"
+    ],
+    "testPipelineArgs": {
+        "plugin": "<--- Insert plugin name as it is in UI Test pipeline Variable --->",
+        "threads": "3"
+    },
+    "sauceLabsInfo": {
+        "FirebaseDynamicLinksPluginSampleApp": {
+            "androidAPIKey": "<--- Insert android sauce labs key here --->",
+            "iosAPIKey": "<--- Insert ios sauce labs key here --->"
+        }
+    }
+}
