@@ -8,6 +8,9 @@ The changes documented here do not include those from the original repository.
 
 ## [Unreleased]
 
+## 2021-05-04
+- feat: added pipelines configuration (https://outsystemsrd.atlassian.net/browse/RMET-588)
+
 ## 2021-05-03
 - fix: changed Android implementation of respondWithDynamicLink to only deal with the same dynamic link once (https://outsystemsrd.atlassian.net/browse/RMET-585)
 
