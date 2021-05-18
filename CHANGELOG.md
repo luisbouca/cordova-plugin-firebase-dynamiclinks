@@ -8,6 +8,9 @@ The changes documented here do not include those from the original repository.
 
 ## [Unreleased]
 
+## 2021-05-18
+- fix: Changed the dependency to our firebase analytics plugin to use the repository url.
+
 ## 2021-05-04
 - feat: added pipelines configuration (https://outsystemsrd.atlassian.net/browse/RMET-588)
 
