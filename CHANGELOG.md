@@ -8,6 +8,9 @@ The changes documented here do not include those from the original repository.
 
 ## [Unreleased]
 
+## 2021-05-20
+- chore: Added OS to plugin version in plugin.xml and package.json.
+
 ## 2021-05-18
 - fix: Changed the dependency to our firebase analytics plugin to use the repository url.
 
