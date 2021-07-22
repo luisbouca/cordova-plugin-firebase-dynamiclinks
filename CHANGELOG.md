@@ -8,11 +8,15 @@ The changes documented here do not include those from the original repository.
 
 ## [Unreleased]
 
-## 2021-07-13
+## [5.0.0-OS1]
+
+## 2021-07-22
 - Firebase Analytics dependency tag updated  [RMET-904](https://outsystemsrd.atlassian.net/browse/RMET-904)
 
 ## 2021-07-13
 - Migrating package upload to newer Saucelabs API [RMET-761](https://outsystemsrd.atlassian.net/browse/RMET-761)
+
+## [5.0.0-OS]
 
 ## 2021-05-20
 - chore: Added OS to plugin version in plugin.xml and package.json.
