@@ -55,6 +55,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     </platform>
 
     <platform name="ios">
+        <preference name="IOS_FIREBASE_DYNAMICLINKS_VERSION" default="~> 8.4.0"/>
 
         <hook type="after_prepare" src="hooks/iOSCopyPreferences.js" />
 
@@ -105,8 +106,11 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <source-file src="src/ios/FirebaseDynamicLinksPlugin.m" />
 
         <podspec>
+            <config>
+                <source url="https://cdn.cocoapods.org/" />
+            </config>
             <pods>
-                <pod name="Firebase/DynamicLinks" spec="~> 8.6.0" />
+                <pod name="Firebase/DynamicLinks" spec="$IOS_FIREBASE_DYNAMICLINKS_VERSION" />
             </pods>
         </podspec>
 
