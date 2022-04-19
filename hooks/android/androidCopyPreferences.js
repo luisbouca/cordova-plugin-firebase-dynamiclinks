@@ -10,27 +10,6 @@ module.exports = function (context) {
     var configParser = new ConfigParser(configXML);
     var app_domain_name = configParser.getGlobalPreference("FIREBASE_DOMAIN_URL_PREFIX");
 
-    /* the code below is probably unnecessary
-    var pluginXMLPath = path.join(pluginPath, 'plugin.xml');
-    var new_xml = path.join(pluginPath, 'plugin.xml')
-    var dataPluginXML = fs.readFileSync(pluginXMLPath).toString();
-    var etree = et.parse(dataPluginXML);
-
-    var preferences = etree.findall('./preference');
-    for (var i = 0; i < preferences.length; i++) {
-        if (preferences[i].get('name') == "APP_DOMAIN_NAME") {
-            var pref = preferences[i];
-            pref.set("default", app_domain_name);
-        }
-    }
-
-    var root = etree.getroot();
-    root.insert(1, pref);
-
-    var resultXml = etree.write();
-    fs.writeFileSync(new_xml, resultXml, "utf-8");
-    */
-
     //ANDROID
     //go inside the AndroidManifest and change value for APP_DOMAIN_NAME
     var manifestPath = path.join(projectRoot, 'platforms/android/app/src/main/AndroidManifest.xml');
