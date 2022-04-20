@@ -1,7 +1,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 xmlns:android="http://schemas.android.com/apk/res/android"
            id="cordova-plugin-firebase-dynamiclinks"
-      version="5.0.0-OS2">
+      version="5.0.0-OS3">
 
     <name>FirebaseDynamicLinksPlugin</name>
     <description>Cordova plugin for Firebase Dynamic Links</description>
@@ -21,11 +21,12 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     <preference name="APP_DOMAIN_NAME" default="firebase_domain_url_prefix"/>
     <preference name="APP_DOMAIN_PATH" default="/" />
 
-    <dependency id="cordova-plugin-firebase-analytics" url="https://github.com/OutSystems/cordova-plugin-firebase-analytics.git#5.0.0-OS2"/>
+    <dependency id="cordova-plugin-firebase-analytics" url="https://github.com/OutSystems/cordova-plugin-firebase-analytics.git#5.0.0-OS3"/>
 
     <platform name="android">
 
-        <hook type="after_prepare" src="hooks/androidCopyPreferences.js" />
+        <hook type="after_prepare" src="hooks/android/androidCopyPreferences.js" />
+        <hook type="before_plugin_install" src="hooks/android/build_gradle_add_dependency.js" />
 
         <preference name="ANDROID_FIREBASE_DYNAMICLINKS_VERSION" default="20.1.+"/>
 
@@ -57,7 +58,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     <platform name="ios">
         <preference name="IOS_FIREBASE_DYNAMICLINKS_VERSION" default="~> 8.6.0"/>
 
-        <hook type="after_prepare" src="hooks/iOSCopyPreferences.js" />
+        <hook type="after_prepare" src="hooks/ios/iOSCopyPreferences.js" />
 
         <config-file parent="/*" target="config.xml">
             <preference name="DOMAIN_URI_PREFIX" value="https://$APP_DOMAIN_NAME$APP_DOMAIN_PATH"/>
