@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The changes documented here do not include those from the original repository.
 
+## [5.0.0-OS4]
+
+## 2022-05-10
+- Firebase Analytics dependency tag updated  [RMET-1547](https://outsystemsrd.atlassian.net/browse/RMET-1547)
 
 ## [5.0.0-OS3]
 ## 2022-04-19
