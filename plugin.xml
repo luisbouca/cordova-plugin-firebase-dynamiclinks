@@ -21,7 +21,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     <preference name="APP_DOMAIN_NAME" default="firebase_domain_url_prefix"/>
     <preference name="APP_DOMAIN_PATH" default="/" />
 
-    <dependency id="cordova-plugin-firebase-analytics" url="https://github.com/OutSystems/cordova-plugin-firebase-analytics.git#5.0.0-OS6"/>
+    <dependency id="cordova-outsystems-firebase-core" url="https://github.com/OutSystems/cordova-outsystems-firebase-core.git#1.0.1"/>
 
     <platform name="android">
 
@@ -51,6 +51,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
         <!--<dependency id="cordova-support-android-plugin" version="~1.0.0"/>-->
         <!--<dependency id="cordova-support-google-services" version="^1.3.0"/>-->
+
+        <dependency id="cordova-support-android-plugin" version="~1.0.0"/>
 
         <framework src="com.google.firebase:firebase-dynamic-links:$ANDROID_FIREBASE_DYNAMICLINKS_VERSION" />
     </platform>
